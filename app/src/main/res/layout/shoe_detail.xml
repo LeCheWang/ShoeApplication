@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_border"
+    android:layout_margin="8dp">
+
+    <!-- Nút quay lại -->
+    <ImageView
+        android:id="@+id/imgBackButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/baseline_close_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:elevation="1dp"
+        android:layout_margin="5dp"
+        android:contentDescription="Close"/>
+
+    <!-- Ảnh sản phẩm -->
+     <ImageView
+        android:id="@+id/imgProductImage"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/mau_giay"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Nút yêu thích -->
+    <ImageView
+        android:id="@+id/imgFavoriteButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/icon_background"
+        android:src="@drawable/ic_favorite"
+        app:layout_constraintTop_toTopOf="@+id/imgProductImage"
+        app:layout_constraintEnd_toEndOf="@+id/imgProductImage"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:padding="4dp"
+        android:contentDescription="favorie"/>
+
+    <!-- Tên sản phẩm -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/imgProductImage"
+        android:paddingStart="8dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="32dp">
+        <TextView
+            android:id="@+id/productName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Tên sản phẩm"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp"
+            tools:ignore="MissingConstraints" />
+
+        <!-- Giá bán -->
+        <TextView
+            android:id="@+id/salePrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Giá bán: $50"
+            android:textSize="18sp"
+            app:layout_constraintTop_toBottomOf="@+id/productName"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <!-- Giá gốc -->
+        <TextView
+            android:id="@+id/originalPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Giá gốc: $80"
+            android:textSize="16sp"
+            android:textColor="@android:color/darker_gray"
+            app:layout_constraintTop_toBottomOf="@+id/salePrice"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="4dp"/>
+
+        <!-- chọn size-->
+        <TextView
+            android:id="@+id/tvSize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sizes"
+            android:textSize="16sp"
+            android:textColor="@android:color/background_dark"
+            app:layout_constraintTop_toBottomOf="@+id/originalPrice"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="4dp"/>
+        <LinearLayout
+            android:id="@+id/linearContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/tvSize"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp"
+            tools:ignore="MissingConstraints">
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:textSize="18sp"-->
+<!--                android:padding="4dp"-->
+<!--                android:background="@drawable/bg_border_stroke"-->
+<!--                android:text="37"/>-->
+
+        </LinearLayout>
+
+        <!-- Nút thêm vào giỏ hàng -->
+        <Button
+            android:id="@+id/addToCartButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Add to card"
+            android:textSize="18sp"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@color/g_blue"
+            app:layout_constraintTop_toBottomOf="@+id/linearContainer"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="12dp"/>
+
+        <!-- Mô tả sản phẩm -->
+        <TextView
+            android:id="@+id/productDescription"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Mô tả sản phẩm..."
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@+id/addToCartButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
