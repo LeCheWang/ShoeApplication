@@ -4,4 +4,6 @@ import com.example.shoeapplication.Models.Shoe;
 
 public interface IOnClick {
     void iOnClickSeeProduct(Shoe shoe, int position);
+
+    void iOnClickAddToCard(Shoe shoe);
 }

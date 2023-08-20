@@ -1,6 +1,9 @@
 package com.example.shoeapplication.fragments.categories;
 
+import static com.example.shoeapplication.fragments.loginRegister.LoginFragment.currentAccount;
+
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.ColorDrawable;
@@ -20,12 +23,15 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.shoeapplication.Models.Cart;
+import com.example.shoeapplication.Models.ItemCart;
 import com.example.shoeapplication.Models.Shoe;
 import com.example.shoeapplication.R;
 import com.example.shoeapplication.adapters.BestDealsAdapter;
@@ -35,6 +41,10 @@ import com.example.shoeapplication.controllers.ApiController;
 import com.example.shoeapplication.databinding.FragmentMainCategoryBinding;
 import com.example.shoeapplication.helpers.MyHelper;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,10 +90,27 @@ public class MainCategoryFragment extends BaseCategoryFragment {
                     binding.rvBestProducts.setAdapter(adapter3);
                     binding.rvBestProducts.setLayoutManager(layoutManager3);
 
+                    adapter.setiOnClick(new IOnClick() {
+                        @Override
+                        public void iOnClickSeeProduct(Shoe shoe, int position) {
+                            //no action
+                        }
+
+                        @Override
+                        public void iOnClickAddToCard(Shoe shoe) {
+                            choiceSizeAndAddToCart(shoe);
+                        }
+                    });
+
                     adapter2.setiOnClick(new IOnClick() {
                         @Override
                         public void iOnClickSeeProduct(Shoe shoe, int position) {
                             openDialogDetailProduct(shoe, position);
+                        }
+
+                        @Override
+                        public void iOnClickAddToCard(Shoe shoe) {
+
                         }
                     });
 
@@ -91,6 +118,11 @@ public class MainCategoryFragment extends BaseCategoryFragment {
                         @Override
                         public void iOnClickSeeProduct(Shoe shoe, int position) {
                             openDialogDetailProduct(shoe, position);
+                        }
+
+                        @Override
+                        public void iOnClickAddToCard(Shoe shoe) {
+                            choiceSizeAndAddToCart(shoe);
                         }
                     });
                 }else {
@@ -106,6 +138,23 @@ public class MainCategoryFragment extends BaseCategoryFragment {
         });
 
         return binding.getRoot();
+    }
+
+    private void choiceSizeAndAddToCart(Shoe shoe) {
+        final String[] sizes = {"37", "38", "39", "40", "41"};
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Sizes")
+                .setItems(sizes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        String selectedSize = sizes[which];
+                        addToCart(shoe.getId(), selectedSize, 1);
+                        dialog.dismiss();
+                    }
+                });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     private void openDialogDetailProduct(Shoe shoe, int position) {
@@ -198,6 +247,16 @@ public class MainCategoryFragment extends BaseCategoryFragment {
 
         Glide.with(getActivity()).load(shoe.getLinkImage()).into(imgProductImage);
 
+        addToCartButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (sizeChoose[0] == null){
+                    Toast.makeText(getActivity(), "please choose size!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                addToCart(shoe.getId(), sizeChoose[0], 1);
+            }
+        });
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -206,5 +265,32 @@ public class MainCategoryFragment extends BaseCategoryFragment {
         });
 
         dialog.show();
+    }
+
+    private void addToCart(String shoe_id, String size, int quantity) {
+        ItemCart<String> itemCart = new ItemCart<String>(shoe_id, size, quantity);
+
+        ApiController.apiService.addToCart(itemCart, currentAccount.getId()).enqueue(new Callback<Cart<String>>() {
+            @Override
+            public void onResponse(Call<Cart<String>> call, Response<Cart<String>> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(getActivity(), "Added to card", Toast.LENGTH_SHORT).show();
+                } else {
+                    String err="";
+                    try {
+                        JSONObject jsonObject= new JSONObject(response.errorBody().string());
+                        err= jsonObject.getString("error");
+                    } catch (JSONException | IOException e) {
+                        e.printStackTrace();
+                    }
+                    Toast.makeText(getActivity(),  err, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Cart<String>> call, Throwable t) {
+                Toast.makeText(getActivity(), "Network error", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

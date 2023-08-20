@@ -68,6 +68,13 @@ public class BestProductsAdapter extends RecyclerView.Adapter<BestProductsAdapte
                 iOnClick.iOnClickSeeProduct(shoe, position);
             }
         });
+
+        holder.btn_add_to_card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                iOnClick.iOnClickAddToCard(shoe);
+            }
+        });
     }
 
     @Override
