@@ -49,12 +49,12 @@ public interface ApiController {
     Call<Account> register(@Body() Account account);
 
     //cart
-    @POST("cards/{id_account}")
+    @POST("carts/{id_account}")
     Call<Cart<String>> addToCart(@Body() ItemCart<String> itemCart, @Path("id_account") String id_account);
 
-    @GET("cards/{id_account}")
+    @GET("carts/{id_account}")
     Call<Cart<Shoe>> getCart(@Path("id_account") String id_account);
 
-    @DELETE("cards/{id_account}/{id_shoe}")
+    @DELETE("carts/{id_account}/{id_shoe}")
     Call<Cart<String>> deleteItemCart(@Path("id_account") String id_account, @Path("id_shoe") String id_shoe);
 }
