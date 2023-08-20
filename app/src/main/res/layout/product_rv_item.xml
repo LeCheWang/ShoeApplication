@@ -98,19 +98,19 @@
         android:padding="5dp"
         android:layout_below="@id/ctTop"
         android:orientation="horizontal">
+
         <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
             android:id="@+id/btn_see_product"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="25dp"
+            android:layout_weight="1"
             android:background="@drawable/blue_background"
             android:fontFamily="@font/poppins_light"
             android:text="See product"
+            android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="10sp"
-            android:textStyle="bold"
-            android:textAllCaps="false"
-            />
+            android:textStyle="bold" />
         <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
             android:id="@+id/btn_add_to_cart"
             android:layout_width="0dp"

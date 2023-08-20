@@ -2,7 +2,10 @@ package com.example.shoeapplication.fragments.shopping;
 
 import static com.example.shoeapplication.fragments.loginRegister.LoginFragment.currentAccount;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
@@ -11,9 +14,13 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.shoeapplication.Models.Cart;
@@ -150,7 +157,47 @@ public class CartFragment extends Fragment {
             }
         });
 
+        binding.tvBtnCheckout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDialogCheckout();
+            }
+        });
+
         return binding.getRoot();
+    }
+
+    private void openDialogCheckout() {
+        Dialog dialog = new Dialog(getActivity());
+
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+        dialog.setContentView(R.layout.dialog_checkout);
+
+        Window window = dialog.getWindow();
+        if (window == null) {
+            return;
+        }
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        WindowManager.LayoutParams windowAtributes = window.getAttributes();
+        windowAtributes.gravity = Gravity.CENTER_VERTICAL;
+        window.setAttributes(windowAtributes);
+
+        dialog.setCancelable(true);
+
+        TextView tvClose = dialog.findViewById(R.id.tvClose);
+
+
+        tvClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
     }
 
     private void calTotalPriceAndQuantum(Cart<Shoe> cart) {
