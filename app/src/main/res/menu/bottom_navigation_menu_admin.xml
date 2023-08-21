@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="Home"
+        android:icon="@drawable/ic_home"
+        android:iconTint="#97aabd"
+        android:id="@+id/adminHomeFragment"/>
+
+    <item android:title="Order"
+        android:icon="@drawable/baseline_local_shipping_24"
+        android:iconTint="#97aabd"
+        android:id="@+id/orderFragment"/>
+
+    <item android:title="Profile"
+        android:icon="@drawable/baseline_person_search_24"
+        android:iconTint="#97aabd"
+        android:id="@+id/accountFragment"/>
+</menu>

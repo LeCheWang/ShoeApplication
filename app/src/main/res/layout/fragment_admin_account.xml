@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+            android:id="@+id/homeHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/searchBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/search_box_background">
+
+                <EditText
+                    android:id="@+id/edSearch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_thin"
+                    android:paddingStart="20dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:layout_marginRight="40dp"
+                    android:singleLine="true"
+                    android:hint="Search by name"
+                    android:textColor="@color/black"
+                    android:background="#FAFBFC"
+                    android:textSize="15sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+                <ImageView
+                    android:id="@+id/ivSearch"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:src="@drawable/ic_search_blue"
+                    android:backgroundTint="@color/g_blue"
+                    app:layout_constraintLeft_toRightOf="@id/edSearch"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <View
+                android:layout_width="10dp"
+                android:layout_height="match_parent"/>
+
+            <ImageView
+                android:id="@+id/ivSearchByCategory"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/baseline_category_24"
+                android:background="@drawable/icon_background"
+                android:backgroundTint="@color/g_search_and_icons"
+                android:padding="10dp"/>
+
+            <View
+                android:layout_width="10dp"
+                android:layout_height="match_parent"/>
+
+            <ImageView
+                android:id="@+id/ivSearchByPrice"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/baseline_price_change_24"
+                android:background="@drawable/icon_background"
+                android:backgroundTint="@color/g_search_and_icons"
+                android:padding="10dp"/>
+
+        </LinearLayout>
+
+
+        <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/g_card_background"
+            android:elevation="0dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="88dp">
+
+                <ImageView
+                    android:id="@+id/img_best_deal1"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/ic_profile"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_deal_product_name1"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/poppins_light"
+                    android:text="vanduy"
+                    android:textColor="@color/black"
+                    android:textSize="9sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@id/img_best_deal1"
+                    app:layout_constraintTop_toTopOf="@id/img_best_deal1" />
+
+
+                <TextView
+                    android:id="@+id/tv_new_price1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sf_pro_display"
+                    android:text="Banlance: $ 1.600"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="@id/tv_deal_product_name1"
+                    app:layout_constraintTop_toBottomOf="@id/tv_deal_product_name1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sf_pro_display"
+                    android:text="Phone: 0989126678"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="@id/tv_deal_product_name1"
+                    app:layout_constraintTop_toBottomOf="@id/tv_new_price1" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/g_card_background"
+            android:elevation="0dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="88dp">
+
+                <ImageView
+                    android:id="@+id/img_best_deal2"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/ic_profile"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_deal_product_name2"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/poppins_light"
+                    android:text="vanlam"
+                    android:textColor="@color/black"
+                    android:textSize="9sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@id/img_best_deal2"
+                    app:layout_constraintTop_toTopOf="@id/img_best_deal2" />
+
+
+                <TextView
+                    android:id="@+id/tv_new_price2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sf_pro_display"
+                    android:text="Banlance: $ 4.600"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="@id/tv_deal_product_name2"
+                    app:layout_constraintTop_toBottomOf="@id/tv_deal_product_name2" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sf_pro_display"
+                    android:text="Phone: 0989126558"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="@id/tv_deal_product_name2"
+                    app:layout_constraintTop_toBottomOf="@id/tv_new_price2" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/g_card_background"
+            android:elevation="0dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="88dp">
+
+                <ImageView
+                    android:id="@+id/img_best_deal3"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/ic_profile"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_deal_product_name3"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/poppins_light"
+                    android:text="caobac"
+                    android:textColor="@color/black"
+                    android:textSize="9sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@id/img_best_deal3"
+                    app:layout_constraintTop_toTopOf="@id/img_best_deal3" />
+
+
+                <TextView
+                    android:id="@+id/tv_new_price3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sf_pro_display"
+                    android:text="Banlance: $ 1.600"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="@id/tv_deal_product_name3"
+                    app:layout_constraintTop_toBottomOf="@id/tv_deal_product_name3" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sf_pro_display"
+                    android:text="Phone: 0989126678"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="@id/tv_deal_product_name3"
+                    app:layout_constraintTop_toBottomOf="@id/tv_new_price3" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/g_card_background"
+            android:elevation="0dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="88dp">
+
+                <ImageView
+                    android:id="@+id/img_best_deal4"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/ic_profile"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_deal_product_name4"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/poppins_light"
+                    android:text="trunglo"
+                    android:textColor="@color/black"
+                    android:textSize="9sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@id/img_best_deal4"
+                    app:layout_constraintTop_toTopOf="@id/img_best_deal4" />
+
+
+                <TextView
+                    android:id="@+id/tv_new_price4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sf_pro_display"
+                    android:text="Banlance: $ 5.600"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="@id/tv_deal_product_name4"
+                    app:layout_constraintTop_toBottomOf="@id/tv_deal_product_name4" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sf_pro_display"
+                    android:text="Phone: 0987776678"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="@id/tv_deal_product_name4"
+                    app:layout_constraintTop_toBottomOf="@id/tv_new_price4" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/g_card_background"
+            android:elevation="0dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="88dp">
+
+                <ImageView
+                    android:id="@+id/img_best_deal5"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/ic_profile"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_deal_product_name5"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/poppins_light"
+                    android:text="phamkien"
+                    android:textColor="@color/black"
+                    android:textSize="9sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@id/img_best_deal5"
+                    app:layout_constraintTop_toTopOf="@id/img_best_deal5" />
+
+
+                <TextView
+                    android:id="@+id/tv_new_price5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sf_pro_display"
+                    android:text="Banlance: $ 1.110"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="@id/tv_deal_product_name5"
+                    app:layout_constraintTop_toBottomOf="@id/tv_deal_product_name5" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sf_pro_display"
+                    android:text="Phone: 0909126611"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="@id/tv_deal_product_name5"
+                    app:layout_constraintTop_toBottomOf="@id/tv_new_price5" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+
+
+    </LinearLayout>
+</layout>

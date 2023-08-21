@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import com.example.shoeapplication.Models.Account;
 import com.example.shoeapplication.R;
 import com.example.shoeapplication.activities.ShoppingActivity;
+import com.example.shoeapplication.activities.AdminActivity;
 import com.example.shoeapplication.controllers.ApiController;
 import com.example.shoeapplication.databinding.FragmentLoginBinding;
 import com.example.shoeapplication.helpers.SharedPreferencesHelper;
@@ -23,7 +24,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -52,6 +52,10 @@ public class LoginFragment extends Fragment {
                 String username = binding.edEmailLogin.getText().toString().trim();
                 String password = binding.edPasswordLogin.getText().toString().trim();
                 sharedPreferencesHelper.saveAccount(username, password);
+                if (username.equals("admin") && password.equals("admin")){
+                    startActivity(new Intent(getActivity(), AdminActivity.class));
+                    return;
+                }
 
                 ApiController.apiService.login(new Account(username, password)).enqueue(new Callback<Account>() {
                     @Override
