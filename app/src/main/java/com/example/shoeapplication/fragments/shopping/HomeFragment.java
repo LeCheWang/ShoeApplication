@@ -14,12 +14,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.example.shoeapplication.adapters.HomeViewpagerAdapter;
 import com.example.shoeapplication.databinding.FragmentHomeBinding;
-import com.example.shoeapplication.fragments.categories.BasketballShoesFragment;
-import com.example.shoeapplication.fragments.categories.LoaferShoesFragment;
 import com.example.shoeapplication.fragments.categories.MainCategoryFragment;
-import com.example.shoeapplication.fragments.categories.OxfordShoesFragment;
-import com.example.shoeapplication.fragments.categories.SneakerShoesFragment;
-import com.example.shoeapplication.fragments.categories.SoccerShoesFragment;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -42,12 +37,17 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         ArrayList<Fragment> categoriesFragments = new ArrayList<>();
-        categoriesFragments.add(new MainCategoryFragment());
-        categoriesFragments.add(new SoccerShoesFragment());
-        categoriesFragments.add(new SneakerShoesFragment());
-        categoriesFragments.add(new BasketballShoesFragment());
-        categoriesFragments.add(new OxfordShoesFragment());
-        categoriesFragments.add(new LoaferShoesFragment());
+        categoriesFragments.add(new MainCategoryFragment("Main"));
+        categoriesFragments.add(new MainCategoryFragment("Soccer"));
+        categoriesFragments.add(new MainCategoryFragment("Sneaker"));
+        categoriesFragments.add(new MainCategoryFragment("Basketball"));
+        categoriesFragments.add(new MainCategoryFragment("Oxford"));
+        categoriesFragments.add(new MainCategoryFragment("Loafer"));
+//        categoriesFragments.add(new SoccerShoesFragment());
+//        categoriesFragments.add(new SneakerShoesFragment());
+//        categoriesFragments.add(new BasketballShoesFragment());
+//        categoriesFragments.add(new OxfordShoesFragment());
+//        categoriesFragments.add(new LoaferShoesFragment());
 
         setupViewPager(categoriesFragments, getChildFragmentManager(), getViewLifecycleOwner().getLifecycle());
     }

@@ -53,8 +53,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainCategoryFragment extends BaseCategoryFragment {
-    public MainCategoryFragment() {
-
+    private String tab;
+    public MainCategoryFragment(String tab) {
+        this.tab = tab;
     }
 
     private FragmentMainCategoryBinding binding;
@@ -69,7 +70,7 @@ public class MainCategoryFragment extends BaseCategoryFragment {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main_category, container, false);
         // You can perform any additional view initialization or setup here
-        ApiController.apiService.getShoes("Main").enqueue(new Callback<List<Shoe>>() {
+        ApiController.apiService.getShoes(tab).enqueue(new Callback<List<Shoe>>() {
             @Override
             public void onResponse(Call<List<Shoe>> call, Response<List<Shoe>> response) {
                 if (response.isSuccessful()){
@@ -157,7 +158,7 @@ public class MainCategoryFragment extends BaseCategoryFragment {
         dialog.show();
     }
 
-    private void openDialogDetailProduct(Shoe shoe, int position) {
+    public void openDialogDetailProduct(Shoe shoe, int position) {
         Dialog dialog = new Dialog(getActivity());
 
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);

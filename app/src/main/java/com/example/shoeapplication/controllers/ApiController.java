@@ -36,6 +36,8 @@ public interface ApiController {
     //Shoe
     @GET("shoes")
     Call<List<Shoe>> getShoes(@Query("category") String category);
+    @GET("shoes")
+    Call<List<Shoe>> getShoes();
 
     @POST("shoes")
     @Multipart

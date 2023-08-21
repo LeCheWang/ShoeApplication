@@ -42,6 +42,11 @@ public class BestDealsAdapter extends RecyclerView.Adapter<BestDealsAdapter.View
         this.context = context;
     }
 
+    public void setShoes(List<Shoe> shoes) {
+        this.shoes = shoes;
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public BestDealsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

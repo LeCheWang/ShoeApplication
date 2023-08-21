@@ -24,6 +24,9 @@ public class Shoe {
     @SerializedName("sizes")
     private String sizes = "37,38,39,40,41";
 
+    @SerializedName("category")
+    private String category;
+
     public Shoe(String id, String name, String description, String linkImage, float price, float newprice, String sizes) {
         this.id = id;
         this.name = name;
@@ -48,6 +51,14 @@ public class Shoe {
         this.linkImage = linkImage;
         this.price = price;
         this.newprice = newprice;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public Shoe() {

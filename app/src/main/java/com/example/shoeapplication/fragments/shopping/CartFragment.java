@@ -38,6 +38,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.List;
 
+import br.com.simplepass.loadingbutton.customViews.CircularProgressButton;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -188,7 +189,14 @@ public class CartFragment extends Fragment {
         dialog.setCancelable(true);
 
         TextView tvClose = dialog.findViewById(R.id.tvClose);
+        CircularProgressButton btnPlaceOrder = dialog.findViewById(R.id.btnPlaceOrder);
 
+        btnPlaceOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
         tvClose.setOnClickListener(new View.OnClickListener() {
             @Override
