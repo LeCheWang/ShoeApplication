@@ -1,12 +1,17 @@
 package com.example.shoeapplication.fragments.shopping;
 
+import static com.example.shoeapplication.fragments.loginRegister.LoginFragment.currentAccount;
+
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -14,9 +19,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.shoeapplication.Models.Cart;
+import com.example.shoeapplication.Models.ItemCart;
+import com.example.shoeapplication.Models.Order;
+import com.example.shoeapplication.Models.Shoe;
 import com.example.shoeapplication.R;
+import com.example.shoeapplication.activities.LoginRegisterActivity;
+import com.example.shoeapplication.adapters.OrderAdapter;
+import com.example.shoeapplication.controllers.ApiController;
 import com.example.shoeapplication.databinding.FragmentProfileBinding;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ProfileFragment extends Fragment {
 
@@ -66,6 +87,13 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        binding.tvLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), LoginRegisterActivity.class));
+            }
+        });
+
         return binding.getRoot();
     }
 
@@ -89,7 +117,38 @@ public class ProfileFragment extends Fragment {
 
         dialog.setCancelable(true);
 
+        RecyclerView revOrder = dialog.findViewById(R.id.revOrder);
+        TextView tvTitleOrder = dialog.findViewById(R.id.tvTitleOrder);
 
-        dialog.show();
+        tvTitleOrder.setText("TO " + status.toUpperCase());
+
+        ApiController.apiService.getOrders(currentAccount.getId(), status).enqueue(new Callback<List<Order<Cart<Shoe>>>>() {
+            @Override
+            public void onResponse(Call<List<Order<Cart<Shoe>>>> call, Response<List<Order<Cart<Shoe>>>> response) {
+                if (response.isSuccessful()){
+                    List<Order<Cart<Shoe>>> orders = response.body();
+                    List<ItemCart<Shoe>> itemCarts = new ArrayList<>();
+                    for (Order<Cart<Shoe>> order: orders){
+                        itemCarts.addAll(order.getCart().getItems());
+                    }
+                    OrderAdapter adapter = new OrderAdapter(itemCarts, getActivity());
+
+                    RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
+                    revOrder.setLayoutManager(layoutManager);
+                    revOrder.setAdapter(adapter);
+
+                    if (itemCarts.size() > 0) {
+                        dialog.show();
+                    }else {
+                        Toast.makeText(getActivity(), "No orders found", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Order<Cart<Shoe>>>> call, Throwable t) {
+                Toast.makeText(getActivity(), "Network Error", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

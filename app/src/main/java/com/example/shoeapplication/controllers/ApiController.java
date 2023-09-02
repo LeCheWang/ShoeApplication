@@ -3,6 +3,7 @@ package com.example.shoeapplication.controllers;
 import com.example.shoeapplication.Models.Account;
 import com.example.shoeapplication.Models.Cart;
 import com.example.shoeapplication.Models.ItemCart;
+import com.example.shoeapplication.Models.Order;
 import com.example.shoeapplication.Models.Shoe;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -36,12 +37,13 @@ public interface ApiController {
     //Shoe
     @GET("shoes")
     Call<List<Shoe>> getShoes(@Query("category") String category);
+
     @GET("shoes")
     Call<List<Shoe>> getShoes();
 
     @POST("shoes")
     @Multipart
-    Call<Shoe> createShoe(@Part("name") RequestBody name, @Part("description") RequestBody description, @Part("price") RequestBody price, @Part MultipartBody.Part img);
+    Call<Shoe> createShoe(@Part("name") RequestBody name, @Part("description") RequestBody description, @Part("price") RequestBody price, @Part("newPrice") RequestBody newPrice, @Part("sizes") RequestBody sizes, @Part("category") RequestBody category, @Part MultipartBody.Part img);
 
     //account
     @POST("accounts/login")
@@ -59,4 +61,11 @@ public interface ApiController {
 
     @DELETE("carts/{id_account}/{id_shoe}")
     Call<Cart<String>> deleteItemCart(@Path("id_account") String id_account, @Path("id_shoe") String id_shoe);
+
+    //orders
+    @GET("orders")
+    Call<List<Order<Cart<Shoe>>>> getOrders(@Query("account_id") String account_id, @Query("status") String status);
+
+    @POST("orders")
+    Call<Order<String>> createOrder(@Body() Order<String> order);
 }

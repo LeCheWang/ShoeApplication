@@ -93,7 +93,7 @@
                             android:layout_weight="1"
                             android:drawableTop="@drawable/topay"
                             android:gravity="center"
-                            android:text="To Pay (2)"
+                            android:text="To Pay"
                             android:textColor="@color/black"
                             android:textSize="16sp" />
 
@@ -126,7 +126,7 @@
                             android:layout_weight="1"
                             android:drawableTop="@drawable/to_rate"
                             android:gravity="center"
-                            android:text="To Rate (6)"
+                            android:text="To Rate"
                             android:textColor="@color/black"
                             android:textSize="16sp" />
                     </LinearLayout>
@@ -377,6 +377,7 @@
                     android:background="@color/g_blue_gray200" />
 
                 <TextView
+                    android:id="@+id/tvLogout"
                     android:layout_width="match_parent"
                     android:layout_height="46dp"
                     android:drawableLeft="@drawable/baseline_logout_24"

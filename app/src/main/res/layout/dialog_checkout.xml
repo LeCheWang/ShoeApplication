@@ -103,15 +103,18 @@
         android:orientation="horizontal">
 
         <RadioGroup
+            android:id="@+id/rbPaymentGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <RadioButton
+                android:id="@+id/rbPaymentOnDeliver"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
                 android:text="Payment on delivery" />
 
             <RadioButton
+                android:id="@+id/rbBankTransfer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Bank transfer" />
