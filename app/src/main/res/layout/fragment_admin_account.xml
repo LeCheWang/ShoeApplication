@@ -76,10 +76,10 @@
                 android:layout_height="match_parent"/>
 
             <ImageView
-                android:id="@+id/ivSearchByPrice"
+                android:id="@+id/ivMore"
                 android:layout_width="40dp"
                 android:layout_height="match_parent"
-                android:src="@drawable/baseline_price_change_24"
+                android:src="@drawable/baseline_more_vert_24"
                 android:background="@drawable/icon_background"
                 android:backgroundTint="@color/g_search_and_icons"
                 android:padding="10dp"/>

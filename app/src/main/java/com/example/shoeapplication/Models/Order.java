@@ -3,6 +3,8 @@ package com.example.shoeapplication.Models;
 import com.google.gson.annotations.SerializedName;
 
 public class Order<T> {
+    @SerializedName("_id")
+    private String id;
     @SerializedName("customer")
     private String customer;
 
@@ -40,6 +42,10 @@ public class Order<T> {
         this.account = account;
     }
 
+    public Order(String status) {
+        this.status = status;
+    }
+
     public Order(String customer, String phone, String address, double total_money, String payment_method, int is_payment, String status, T cart, String account) {
         this.customer = customer;
         this.phone = phone;
@@ -52,7 +58,28 @@ public class Order<T> {
         this.account = account;
     }
 
+    public Order(String id, String customer, String phone, String address, double total_money, String payment_method, int is_payment, String status, T cart, String account) {
+        this.id = id;
+        this.customer = customer;
+        this.phone = phone;
+        this.address = address;
+        this.total_money = total_money;
+        this.payment_method = payment_method;
+        this.is_payment = is_payment;
+        this.status = status;
+        this.cart = cart;
+        this.account = account;
+    }
+
     public Order() {
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getCustomer() {

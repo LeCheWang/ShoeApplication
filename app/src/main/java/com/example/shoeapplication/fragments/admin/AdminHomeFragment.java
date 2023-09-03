@@ -26,6 +26,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -39,6 +41,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.shoeapplication.Models.Shoe;
 import com.example.shoeapplication.R;
 import com.example.shoeapplication.adapters.ProductAdapter;
@@ -91,7 +94,7 @@ public class AdminHomeFragment extends Fragment {
         binding.btnNewProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openDialogCreateNewProduct();
+                openDialogCreateNewProduct(null, 0);
             }
         });
         ApiController.apiService.getShoes().enqueue(new Callback<List<Shoe>>() {
@@ -107,12 +110,39 @@ public class AdminHomeFragment extends Fragment {
                     productAdapter.setiOnClickProduct(new IOnClickProduct() {
                         @Override
                         public void iOnClickEdit(Shoe shoe, int position) {
-
+                            openDialogCreateNewProduct(shoe, position);
                         }
 
                         @Override
                         public void iOnClickDelete(Shoe shoe, int position) {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                            builder.setTitle("Delete Confirm");
+                            builder.setMessage("you definitely want to delete?");
+                            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    ApiController.apiService.deleteShoe(shoe.getId()).enqueue(new Callback<JSONObject>() {
+                                        @Override
+                                        public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {
+                                            shoes.remove(position);
+                                            productAdapter.setShoes(shoes);
+                                            Toast.makeText(getActivity(), "Deleted", Toast.LENGTH_SHORT).show();
+                                        }
 
+                                        @Override
+                                        public void onFailure(Call<JSONObject> call, Throwable t) {
+
+                                        }
+                                    });
+                                }
+                            });
+                            builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                            builder.show();
                         }
                     });
                 }
@@ -124,10 +154,35 @@ public class AdminHomeFragment extends Fragment {
             }
         });
 
+        binding.edSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String str = s.toString();
+                List<Shoe> searchShoes = new ArrayList<>();
+
+                for (Shoe shoe: shoes){
+                    if (shoe.getName().toLowerCase().contains(str.toLowerCase())){
+                        searchShoes.add(shoe);
+                    }
+                }
+
+                productAdapter.setShoes(searchShoes);
+            }
+        });
         return binding.getRoot();
     }
 
-    private void openDialogCreateNewProduct() {
+    private void openDialogCreateNewProduct(Shoe shoe, int position) {
         Dialog dialog = new Dialog(getActivity());
 
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -159,8 +214,24 @@ public class AdminHomeFragment extends Fragment {
         edtNewPrice = dialog.findViewById(R.id.edtNewPrice);
         edtSizes = dialog.findViewById(R.id.edtSizes);
         tvCategory = dialog.findViewById(R.id.tvCategory);
+        imgAvt = dialog.findViewById(R.id.imgAvt);
+
+        btnCreate = dialog.findViewById(R.id.btnCreate);
 
         final String[] category = {"Sneaker"};
+
+        if (shoe != null) {
+            edtName.setText(shoe.getName());
+            edtDes.setText(shoe.getDescription());
+            edtPrice.setText(shoe.getPrice() + "");
+            edtNewPrice.setText(shoe.getNewprice() + "");
+            edtSizes.setText(shoe.getSizes());
+            tvCategory.setText(shoe.getCategory());
+            category[0] = shoe.getCategory();
+            btnCreate.setText("UPDATE");
+            Glide.with(getActivity()).load(shoe.getLinkImage()).into(imgAvt);
+        }
+
         tvCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -179,10 +250,6 @@ public class AdminHomeFragment extends Fragment {
                 dialog.show();
             }
         });
-
-        imgAvt = dialog.findViewById(R.id.imgAvt);
-
-        btnCreate = dialog.findViewById(R.id.btnCreate);
 
         imgAvt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -217,34 +284,64 @@ public class AdminHomeFragment extends Fragment {
 
                 MultipartBody.Part multipartBodyAvt = MultipartBody.Part.createFormData("img", file.getName(), requestBodyAvt);
 
-
-                ApiController.apiService.createShoe(bodyName, bodyDes, bodyPrice, bodyNewPrice, bodySizes, bodyCategory, multipartBodyAvt).enqueue(new Callback<Shoe>() {
-                    @Override
-                    public void onResponse(Call<Shoe> call, Response<Shoe> response) {
-                        if (response.isSuccessful()) {
-                            dialog.dismiss();
+                if (shoe == null) { //tạo
+                    ApiController.apiService.createShoe(bodyName, bodyDes, bodyPrice, bodyNewPrice, bodySizes, bodyCategory, multipartBodyAvt).enqueue(new Callback<Shoe>() {
+                        @Override
+                        public void onResponse(Call<Shoe> call, Response<Shoe> response) {
+                            if (response.isSuccessful()) {
+                                dialog.dismiss();
 //                                    callApiGetShoes();
-                            shoes.add(0, response.body());
-                            productAdapter.setShoes(shoes);
-                            Toast.makeText(getActivity(), "Create New Shoe Success", Toast.LENGTH_SHORT).show();
-                        } else {
-                            String err = "";
-                            try {
-                                JSONObject jsonObject = new JSONObject(response.errorBody().string());
-                                err = jsonObject.getString("error");
-                            } catch (JSONException | IOException e) {
-                                e.printStackTrace();
+                                shoes.add(position, response.body());
+                                productAdapter.setShoes(shoes);
+                                Toast.makeText(getActivity(), "Create New Shoe Success", Toast.LENGTH_SHORT).show();
+                            } else {
+                                String err = "";
+                                try {
+                                    JSONObject jsonObject = new JSONObject(response.errorBody().string());
+                                    err = jsonObject.getString("error");
+                                } catch (JSONException | IOException e) {
+                                    e.printStackTrace();
+                                }
+                                Toast.makeText(getActivity().getBaseContext(), "Có lỗi xảy ra: " + err, Toast.LENGTH_SHORT).show();
                             }
-                            Toast.makeText(getActivity().getBaseContext(), "Có lỗi xảy ra: " + err, Toast.LENGTH_SHORT).show();
                         }
-                    }
 
-                    @Override
-                    public void onFailure(Call<Shoe> call, Throwable t) {
-                        //lỗi không call được api
-                        Toast.makeText(getActivity(), "Lỗi đường truyền", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                        @Override
+                        public void onFailure(Call<Shoe> call, Throwable t) {
+                            //lỗi không call được api
+                            Toast.makeText(getActivity(), "Lỗi đường truyền", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                } else { //update
+                    ApiController.apiService.updateShoe(shoe.getId(), bodyName, bodyDes, bodyPrice, bodyNewPrice, bodySizes, bodyCategory, multipartBodyAvt).enqueue(new Callback<Shoe>() {
+                        @Override
+                        public void onResponse(Call<Shoe> call, Response<Shoe> response) {
+                            if (response.isSuccessful()) {
+                                dialog.dismiss();
+//                                    callApiGetShoes();
+                                shoes.set(position, response.body());
+                                productAdapter.setShoes(shoes);
+                                Toast.makeText(getActivity(), "Update Shoe Success", Toast.LENGTH_SHORT).show();
+                            } else {
+                                String err = "";
+                                try {
+                                    JSONObject jsonObject = new JSONObject(response.errorBody().string());
+                                    err = jsonObject.getString("error");
+                                } catch (JSONException | IOException e) {
+                                    e.printStackTrace();
+                                }
+                                Toast.makeText(getActivity().getBaseContext(), "Có lỗi xảy ra: " + err, Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Shoe> call, Throwable t) {
+                            //lỗi không call được api
+                            Toast.makeText(getActivity(), "Lỗi đường truyền", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+
             }
         });
 

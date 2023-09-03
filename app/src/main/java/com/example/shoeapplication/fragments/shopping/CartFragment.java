@@ -69,7 +69,7 @@ public class CartFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_cart, container, false);
 
-        ApiController.apiService.getCart(currentAccount.getId()).enqueue(new Callback<Cart<Shoe>>() {
+        ApiController.apiService.getCart(currentAccount.getId(), 0).enqueue(new Callback<Cart<Shoe>>() {
             @Override
             public void onResponse(Call<Cart<Shoe>> call, Response<Cart<Shoe>> response) {
                 if (response.isSuccessful()) {
