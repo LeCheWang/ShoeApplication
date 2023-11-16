@@ -27,7 +27,7 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:src="@drawable/mau_giay" />
+                        android:src="@drawable/baseline_phone_enabled_24" />
                 </androidx.cardview.widget.CardView>
 
                 <LinearLayout
@@ -41,7 +41,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="duyvan"
+                        android:text="phamky"
                         android:textColor="@color/white"
                         android:textSize="24sp"
                         android:textStyle="bold" />

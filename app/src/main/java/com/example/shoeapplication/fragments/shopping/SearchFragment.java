@@ -170,7 +170,7 @@ public class SearchFragment extends Fragment {
         binding.ivSearchByCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String[] categories = {"All", "Main", "Soccer", "Sneaker", "Basketball", "Oxford", "Loafer"};
+                final String[] categories = {"All", "Apple", "Samsung", "Huawei", "Xiaomi"};
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle("Search By Category")
@@ -182,24 +182,19 @@ public class SearchFragment extends Fragment {
                                     case "All":
                                         searchByCategory("All");
                                         break;
-                                    case "Main":
-                                        searchByCategory("Main");
+                                    case "Apple":
+                                        searchByCategory("Apple");
                                         break;
-                                    case "Soccer":
-                                        searchByCategory("Soccer");
+                                    case "Samsung":
+                                        searchByCategory("Samsung");
                                         break;
-                                    case "Sneaker":
-                                        searchByCategory("Sneaker");
+                                    case "Huawei":
+                                        searchByCategory("Huawei");
                                         break;
-                                    case "Basketball":
-                                        searchByCategory("Basketball");
+                                    case "Xiaomi":
+                                        searchByCategory("Xiaomi");
                                         break;
-                                    case "Oxford":
-                                        searchByCategory("Oxford");
-                                        break;
-                                    case "Loafer":
-                                        searchByCategory("Loafer");
-                                        break;
+
                                 }
                                 dialog.dismiss();
                             }
@@ -298,11 +293,11 @@ public class SearchFragment extends Fragment {
 
         String[] sizes = shoe.getSizes().split(",");
         final String[] sizeChoose = {null};
-        for (String size : sizes) {
+        for (int size = 0; size < sizes.length; size++) {
             TextView textView = new TextView(getActivity());
 
-            textView.setId(Integer.parseInt(size));
-            textView.setText(size);
+            textView.setId(size);
+            textView.setText(sizes[size]);
 
             // Set các thuộc tính cho TextView
             textView.setTextColor(getResources().getColor(R.color.black));
@@ -320,19 +315,20 @@ public class SearchFragment extends Fragment {
             textView.setLayoutParams(layoutParams);
 
             // Xử lý sự kiện click
+            int finalSize = size;
             textView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if (sizeChoose[0] != null) {
-                        TextView tvOld = dialog.findViewById(Integer.parseInt(sizeChoose[0]));
+                        TextView tvOld = dialog.findViewById(0);
                         tvOld.setBackgroundResource(R.drawable.bg_border_stroke);
                     }
-                    if (sizeChoose[0] != size) {
+                    if (sizeChoose[0] != sizes[finalSize]) {
                         textView.setBackgroundResource(R.drawable.bg_border_stroke_active);
                     } else {
                         textView.setBackgroundResource(R.drawable.bg_border_stroke);
                     }
-                    sizeChoose[0] = size;
+                    sizeChoose[0] = sizes[finalSize];
 
                 }
             });

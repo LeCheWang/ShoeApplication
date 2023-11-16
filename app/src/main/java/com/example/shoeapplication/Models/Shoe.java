@@ -22,7 +22,7 @@ public class Shoe {
     private float newprice;
 
     @SerializedName("sizes")
-    private String sizes = "37,38,39,40,41";
+    private String sizes = "xám,đen";
 
     @SerializedName("category")
     private String category;

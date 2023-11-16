@@ -92,36 +92,37 @@
                     android:text="1"/>
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true">
-                <TextView
-                    android:id="@+id/sz"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="20dp"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"
-                    android:textSize="17sp"
-                    android:text="Size: "/>
 
-                <TextView
-                    android:id="@+id/tvSize"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/sz"
-                    android:padding="5dp"
-                    android:textSize="17sp"
-                    android:layout_centerVertical="true"
-                    android:text="37"/>
-            </LinearLayout>
 
 
         </RelativeLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true">
+            <TextView
+                android:id="@+id/sz"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="17sp"
+                android:text="Color: "/>
+
+            <TextView
+                android:id="@+id/tvSize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/sz"
+                android:padding="5dp"
+                android:textSize="17sp"
+                android:layout_centerVertical="true"
+                android:text="37"/>
+        </LinearLayout>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="1dp"

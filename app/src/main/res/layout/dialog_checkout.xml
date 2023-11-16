@@ -38,7 +38,7 @@
         android:layout_marginBottom="8dp"
         android:drawableRight="@drawable/baseline_drive_file_rename_outline_24"
         android:hint="name"
-        android:text="Nguyễn Văn Duy" />
+        android:text="Phạm Gia Kỳ" />
 
     <EditText
         android:id="@+id/edit_phone"

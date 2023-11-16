@@ -142,10 +142,10 @@ public class MainCategoryFragment extends BaseCategoryFragment {
     }
 
     private void choiceSizeAndAddToCart(Shoe shoe) {
-        final String[] sizes = {"37", "38", "39", "40", "41"};
+        final String[] sizes = shoe.getSizes().split(",");
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Sizes")
+        builder.setTitle("Color")
                 .setItems(sizes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         String selectedSize = sizes[which];
@@ -197,11 +197,11 @@ public class MainCategoryFragment extends BaseCategoryFragment {
 
         String []sizes = shoe.getSizes().split(",");
         final String[] sizeChoose = {null};
-        for (String size: sizes){
+        for (int size = 0; size < sizes.length; size++){
             TextView textView = new TextView(getActivity());
 
-            textView.setId(Integer.parseInt(size));
-            textView.setText(size);
+            textView.setId(size);
+            textView.setText(sizes[size]);
 
             // Set các thuộc tính cho TextView
             textView.setTextColor(getResources().getColor(R.color.black));
@@ -219,19 +219,20 @@ public class MainCategoryFragment extends BaseCategoryFragment {
             textView.setLayoutParams(layoutParams);
 
             // Xử lý sự kiện click
+            int finalSize = size;
             textView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if (sizeChoose[0] != null){
-                        TextView tvOld = dialog.findViewById(Integer.parseInt(sizeChoose[0]));
+                        TextView tvOld = dialog.findViewById(0);
                         tvOld.setBackgroundResource(R.drawable.bg_border_stroke);
                     }
-                    if (sizeChoose[0] != size){
+                    if (sizeChoose[0] != sizes[finalSize]){
                         textView.setBackgroundResource(R.drawable.bg_border_stroke_active);
                     }else {
                         textView.setBackgroundResource(R.drawable.bg_border_stroke);
                     }
-                    sizeChoose[0] = size;
+                    sizeChoose[0] = sizes[finalSize];
 
                 }
             });
@@ -252,7 +253,7 @@ public class MainCategoryFragment extends BaseCategoryFragment {
             @Override
             public void onClick(View v) {
                 if (sizeChoose[0] == null){
-                    Toast.makeText(getActivity(), "please choose size!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "please choose color!", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 addToCart(shoe.getId(), sizeChoose[0], 1);

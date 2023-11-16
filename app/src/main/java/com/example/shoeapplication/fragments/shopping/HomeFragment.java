@@ -37,17 +37,12 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         ArrayList<Fragment> categoriesFragments = new ArrayList<>();
-        categoriesFragments.add(new MainCategoryFragment("Main"));
-        categoriesFragments.add(new MainCategoryFragment("Soccer"));
-        categoriesFragments.add(new MainCategoryFragment("Sneaker"));
-        categoriesFragments.add(new MainCategoryFragment("Basketball"));
-        categoriesFragments.add(new MainCategoryFragment("Oxford"));
-        categoriesFragments.add(new MainCategoryFragment("Loafer"));
-//        categoriesFragments.add(new SoccerShoesFragment());
-//        categoriesFragments.add(new SneakerShoesFragment());
-//        categoriesFragments.add(new BasketballShoesFragment());
-//        categoriesFragments.add(new OxfordShoesFragment());
-//        categoriesFragments.add(new LoaferShoesFragment());
+        categoriesFragments.add(new MainCategoryFragment("Apple"));
+        categoriesFragments.add(new MainCategoryFragment("Samsung"));
+        categoriesFragments.add(new MainCategoryFragment("Huawei"));
+        categoriesFragments.add(new MainCategoryFragment("Xiaomi"));
+//        categoriesFragments.add(new MainCategoryFragment("Oxford"));
+//        categoriesFragments.add(new MainCategoryFragment("Loafer"));
 
         setupViewPager(categoriesFragments, getChildFragmentManager(), getViewLifecycleOwner().getLifecycle());
     }
@@ -63,22 +58,16 @@ public class HomeFragment extends Fragment {
             public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
                 switch (position) {
                     case 0:
-                        tab.setText("Main");
+                        tab.setText("Apple");
                         break;
                     case 1:
-                        tab.setText("Soccer");
+                        tab.setText("Samsung");
                         break;
                     case 2:
-                        tab.setText("Sneaker");
+                        tab.setText("Huawei");
                         break;
                     case 3:
-                        tab.setText("Basketball");
-                        break;
-                    case 4:
-                        tab.setText("Oxford");
-                        break;
-                    case 5:
-                        tab.setText("Loafer");
+                        tab.setText("Xiaomi");
                         break;
                 }
             }
